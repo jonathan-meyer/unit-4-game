@@ -1,4 +1,4 @@
-$(function() {
+(function($) {
   $.widget("stej.game", {
     options: {
       characters: [],
@@ -23,4 +23,4 @@ $(function() {
       });
     }
   });
-});
+})(jQuery);
