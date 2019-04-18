@@ -1,0 +1,17 @@
+.character {
+  float: left;
+}
+
+.health {
+  text-align: center;
+  font-family: bold;
+  font-size: 2em;
+}
+
+.player {
+  background-color: lawngreen;
+}
+
+.enemy {
+  background-color: red;
+}
