@@ -1,5 +1,16 @@
 body {
   background-image: url("../images/death-star.jpg");
+  color: white;
+}
+
+.game {
+  position: relative;
+}
+
+.game-message {
+  font-size: 2em;
+  text-align: center;
+  margin: 10px;
 }
 
 .character {
@@ -33,6 +44,12 @@ body {
   width: 100%;
   left: 0px;
   bottom: 0px;
+  text-shadow: 0px 0px 5px #000;
+}
+
+.hover > .character-shadow {
+  background-color: white;
+  color: white;
 }
 
 .player > .character-shadow {

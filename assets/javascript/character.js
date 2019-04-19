@@ -6,7 +6,11 @@
       health: 0,
       attack: 0,
       counter: 0,
-      Type: "none"
+      type: "none"
+    },
+
+    name: function() {
+      return this.options.name;
     },
 
     health: function(value) {
@@ -15,6 +19,24 @@
       }
 
       this.options.health = parseInt(value);
+      this._update();
+    },
+
+    setNone: function() {
+      this.options.type = "none";
+      this.element.removeClass("enemy").removeClass("player");
+      this._update();
+    },
+
+    setPlayer: function() {
+      this.options.type = "player";
+      this.element.removeClass("enemy").addClass("player");
+      this._update();
+    },
+
+    setEnemy: function() {
+      this.options.type = "enemy";
+      this.element.removeClass("player").addClass("enemy");
       this._update();
     },
 
@@ -39,8 +61,11 @@
         .addClass("character");
 
       this._on(this.element, {
-        click: function() {
-          console.log("Click", this.options.name);
+        mouseenter: function() {
+          this.element.addClass("hover");
+        },
+        mouseleave: function() {
+          this.element.removeClass("hover");
         }
       });
 
@@ -49,7 +74,6 @@
 
     _update: function() {
       this.healthEl.text(this.options.health);
-      this;
     }
   });
 })(jQuery);
