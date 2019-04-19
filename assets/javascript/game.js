@@ -18,10 +18,10 @@
       var game = this;
 
       game.messageEl = $("<div>").addClass("game-message");
-      game.playerEl = $("<div>").addClass("game-player");
       game.charactersEl = $("<div>").addClass("game-characters clearfix");
+      game.playerEl = $("<div>").addClass("game-player");
       game.opponentEl = $("<div>").addClass("game-opponent");
-      game.attackButtonEl = $("<button>").text("Attack");
+      game.attackButtonEl = $("<button>").text("Attack ->").addClass("btn btn-danger");
 
       $.each(game.options.characters, function() {
         var character = this;
@@ -37,9 +37,44 @@
       });
 
       game.element
-        .append(game.messageEl)
-        .append(game.charactersEl)
-        .addClass("game");
+        .append(
+          $("<div>")
+            .addClass("row")
+            .append(
+              $("<div>")
+                .addClass("col-12")
+                .append(game.messageEl)
+            )
+        )
+        .append(
+          $("<div>")
+            .addClass("row")
+            .append(
+              $("<div>")
+                .addClass("col-12")
+                .append(game.charactersEl)
+            )
+        )
+        .append(
+          $("<div>")
+            .addClass("row")
+            .append(
+              $("<div>")
+                .addClass("col-4")
+                .append(game.playerEl)
+            )
+            .append(
+              $("<div>")
+                .addClass("col-4 d-flex justify-content-center align-items-center")
+                .append(game.attackButtonEl)
+            )
+            .append(
+              $("<div>")
+                .addClass("col-4")
+                .append(game.opponentEl)
+            )
+        )
+        .addClass("game container");
 
       game._update();
     },

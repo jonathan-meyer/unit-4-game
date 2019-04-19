@@ -2,15 +2,28 @@
   $.widget("stej.character", {
     options: {
       img: "none.png",
-      name: "UnNamed",
+      name: "Unnamed",
+      roll: "none",
       health: 0,
       attack: 0,
       counter: 0,
-      type: "none"
+      size: 150
     },
 
     name: function() {
       return this.options.name;
+    },
+
+    roll: function(value) {
+      if (value === undefined) {
+        return this.options.roll;
+      }
+
+      if (["none", "player", "enemy"].includes(value.toLowerCase())) {
+        this.options.roll = value.toLowerCase();
+      }
+
+      this._update();
     },
 
     health: function(value) {
@@ -22,21 +35,24 @@
       this._update();
     },
 
-    setNone: function() {
-      this.options.type = "none";
-      this.element.removeClass("enemy").removeClass("player");
-      this._update();
+    attack: function(value) {
+      if (value === undefined) {
+        return this.options.attack;
+      }
+
+      this.options.attack = parseInt(value);
     },
 
-    setPlayer: function() {
-      this.options.type = "player";
-      this.element.removeClass("enemy").addClass("player");
-      this._update();
+    counter: function() {
+      return this.options.counter;
     },
 
-    setEnemy: function() {
-      this.options.type = "enemy";
-      this.element.removeClass("player").addClass("enemy");
+    size: function(value) {
+      if (value === undefined) {
+        return this.options.size;
+      }
+
+      this.options.size = parseInt(value);
       this._update();
     },
 
@@ -48,7 +64,6 @@
           src: this.options.img,
           alt: this.options.name
         })
-        .width(200)
         .addClass("character-img");
 
       this.element
@@ -73,7 +88,13 @@
     },
 
     _update: function() {
+      this.imageEl.width(this.options.size);
       this.healthEl.text(this.options.health);
+      this.element
+        .attr("title", [this.options.name, "Attack: " + this.options.attack, "Counter: " + this.options.counter].join("\n"))
+        .removeClass("enemy")
+        .removeClass("player")
+        .addClass(this.options.roll);
     }
   });
 })(jQuery);
