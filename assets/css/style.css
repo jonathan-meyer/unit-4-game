@@ -13,6 +13,7 @@ body {
 }
 
 .game {
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px 2.5px gray, 0 0 10px 2.5px gray inset;
 }
@@ -20,12 +21,14 @@ body {
 .game-message {
   font-size: 2em;
   text-align: center;
-  margin: 10px;
+  margin: 20px;
+  color: rgb(255, 255, 0);
+  text-shadow: 2px 2px 10px white;
+  min-height: 200px;
 }
 
 .game-characters {
   position: relative;
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -34,18 +37,15 @@ body {
 .character {
   display: flex;
   align-self: center;
-  /* border: 1px solid blue; */
   position: relative;
-  margin-bottom: 50px;
 }
 
 .character-shadow {
-  /* z-index: -1; */
   width: 50%;
-  height: 80%;
-  border-radius: 20px;
+  height: 50%;
+  border-radius: 10px;
   position: absolute;
-  top: 10%;
+  top: 25%;
   left: 25%;
   box-shadow: 0 0 20px 20px;
   background-color: gray;
@@ -55,7 +55,6 @@ body {
 .character-img {
   z-index: 1;
   align-self: center;
-  /* border: 1px solid white; */
   background-color: transparent;
 }
 
@@ -63,7 +62,6 @@ body {
   z-index: 2;
   position: absolute;
   text-align: center;
-  font-size: 2em;
   color: white;
   width: 100%;
   left: 0px;
@@ -76,24 +74,41 @@ body {
   color: rgb(200, 200, 200);
 }
 
-.player > .character-shadow {
+.roll-player > .character-shadow {
+  background-color: green;
+  color: green;
+}
+
+.roll-player.hover > .character-shadow {
   background-color: lawngreen;
   color: lawngreen;
 }
 
-.enemy > .character-shadow {
+.roll-enemy > .character-shadow {
+  background-color: darkred;
+  color: darkred;
+}
+
+.roll-enemy.hover > .character-shadow {
   background-color: red;
   color: red;
 }
 
-.game-player {
-  border: 1px solid green;
-  height: 200px;
-  margin-bottom: 15px;
+.game-player:empty,
+.game-opponent:empty {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 20px;
+  margin-bottom: 20px;
 }
 
-.game-opponent {
-  border: 1px solid red;
-  height: 200px;
-  margin-bottom: 15px;
+.game-player:empty {
+  color: green;
+  background-color: green;
+}
+
+.game-opponent:empty {
+  color: darkred;
+  background-color: darkred;
 }
