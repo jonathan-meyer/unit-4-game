@@ -118,7 +118,13 @@
 
       if (player_health > 0 && opponent_health <= 0) {
         game.grave.append(opponent);
-        game.message += [game.message, '<span class="text-danger">' + opponent_name + " eliminated.</span>", "Select a new Opponent."].join("<br/>");
+
+        if (game.charactersEl.children().length > 0) {
+          game.message += [game.message, '<span class="text-danger">' + opponent_name + " eliminated.</span>", "Select a new Opponent."].join("<br/>");
+        } else {
+          game.message = "Hurray!";
+          game._popup(player_name + " prevailed!", "Game Over", true);
+        }
       } else if (player_health <= 0) {
         game._popup(player_name + " eliminated!", "Game Over");
       }
@@ -126,7 +132,7 @@
       game._update();
     },
 
-    _popup: function(message, title) {
+    _popup: function(message, title, won) {
       $("<div>")
         .addClass("modal fade")
         .attr({ role: "dialog" })
@@ -156,7 +162,8 @@
                     .addClass("modal-body")
                     .append(
                       $("<h5>")
-                        .addClass(" text-center text-danger")
+                        .addClass("text-center")
+                        .addClass(won ? "text-success" : "text-danger")
                         .text(message)
                     )
                 )
@@ -168,15 +175,28 @@
     _characterSelect: function(el) {
       var game = this;
 
-      if (game.playerEl.children().length === 0) {
-        game.playerEl.append(el.character("roll", "player"));
-        game.message = "Select an Opponent";
-      } else if (game.opponentEl.children().length === 0) {
-        game.opponentEl.append(el.character("roll", "enemy"));
-        game.message = "Go!";
-      }
+      if (
+        $(el).get(0) !==
+          game.playerEl
+            .children()
+            .first()
+            .get(0) &&
+        $(el).get(0) !==
+          game.opponentEl
+            .children()
+            .first()
+            .get(0)
+      ) {
+        if (game.playerEl.children().length === 0) {
+          game.playerEl.append(el.character("roll", "player"));
+          game.message = "Select an Opponent";
+        } else if (game.opponentEl.children().length === 0) {
+          game.opponentEl.append(el.character("roll", "enemy"));
+          game.message = "Go!";
+        }
 
-      game._update();
+        game._update();
+      }
     },
 
     _update: function() {
